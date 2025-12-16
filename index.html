@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Kamu 🤍</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    height: 100vh;
+    background: radial-gradient(circle at top, #fdfbfb, #eaeaea);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Georgia", serif;
+    overflow: hidden;
+}
+
+/* ===== FLOATING BACKGROUND ===== */
+.float {
+    position: absolute;
+    font-size: 18px;
+    color: rgba(200, 100, 120, 0.3);
+    animation: floatUp 12s linear infinite;
+}
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 0; }
+    to { transform: translateY(-10vh); opacity: 1; }
+}
+
+/* ===== CARD ===== */
+.card {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
+    padding: 45px;
+    width: 430px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,.15);
+    animation: fadeIn 2s ease;
+}
+@keyframes fadeIn {
+    from { opacity:0; transform: translateY(50px) scale(.95); }
+    to { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.heart {
+    font-size: 55px;
+    animation: beat 1.2s infinite;
+}
+@keyframes beat {
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.3);}
+}
+
+/* ===== NAME TYPING ===== */
+.name {
+    font-size: 28px;
+    margin: 15px 0;
+    letter-spacing: 2px;
+    color: #333;
+    min-height: 34px;
+}
+
+/* ===== TEXT ===== */
+p {
+    color: #555;
+    line-height: 1.8;
+    margin: 12px 0;
+    opacity: 0;
+    animation: fadeUp 2s ease forwards;
+}
+p:nth-of-type(1){animation-delay:.8s}
+p:nth-of-type(2){animation-delay:1.4s}
+
+@keyframes fadeUp {
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* ===== QUESTION ===== */
+.question {
+    margin-top: 25px;
+    font-size: 20px;
+    color: #c9184a;
+    opacity: 0;
+    animation: glow 2s ease forwards;
+    animation-delay: 2.2s;
+}
+@keyframes glow {
+    from{opacity:0;}
+    to{opacity:1; text-shadow:0 0 10px rgba(201,24,74,.5);}
+}
+
+/* ===== BUTTONS ===== */
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 2s ease forwards;
+    animation-delay: 2.8s;
+}
+button {
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .3s;
+}
+.yes { background:#ff4d6d; color:white; }
+.maybe { background:#ffd6e0; }
+.smile { background:#f1f1f1; }
+
+button:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== RESPONSE ===== */
+.response {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #444;
+    min-height: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING -->
+<span class="float" style="left:15%">♡</span>
+<span class="float" style="left:40%; animation-delay:3s">♡</span>
+<span class="float" style="left:70%; animation-delay:6s">♡</span>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+    <!-- GANTI LINK MUSIK JIKA MAU -->
+    <source src="C:\Users\Ryan\Desktop\gekyaaa\kasih putih.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+    <div class="heart">🤍</div>
+
+    <!-- NAMA -->
+    <div class="name" id="name"></div>
+
+    <p>
+        aku seneng bisa kenal ma khe tiap hari callan ngobrol walaupun banyak ribut nya juga,<br>
+        khe juga udh tau semuanya tentang aku dari aku cerita ke khe,<br>
+        aku juga seneng bisa dengerin cerita khe walaupun kadang cerita nya bikin aku bingung tapi aku tetep dengerin khe cerita,<br>
+        aku harap khe juga ngerasa seneng kenal aku kaya aku seneng kenal khe,<br>
+        makasih udh jadi temen aku selama ini🤍
+        love u gekyaaa
+    </p>
+
+    <div class="question">
+        will you be my gf?
+    </div>
+
+    <div class="buttons">
+        <button class="yes" onclick="answer('yes')">Iya</button>
+        <button class="maybe" onclick="answer('maybe')">Mungkin</button>
+        <button class="smile" onclick="answer('smile')">Senyum</button>
+    </div>
+
+    <div class="response" id="response"></div>
+</div>
+
+<script>
+const namaDia = "gusti ayu emilia artika";
+const nameEl = document.getElementById("name");
+
+/* TYPE EFFECT */
+let i = 0;
+function typeName(){
+    if(i < namaDia.length){
+        nameEl.textContent += namaDia.charAt(i);
+        i++;
+        setTimeout(typeName, 120);
+    }
+}
+typeName();
+
+let musicPlayed = false;
+document.body.addEventListener("click", () => {
+    if(!musicPlayed){
+        document.getElementById("music").play();
+        musicPlayed = true;
+    }
+}, { once:true });
+
+function answer(type){
+    const res = document.getElementById("response");
+    if(type === "yes"){
+        res.textContent = "Terima kasih 🤍 Aku akan menjaganya dengan tulus.";
+    } else if(type === "maybe"){
+        res.textContent = "Aku mengerti. Perasaan tidak perlu dipaksa 🤍";
+    } else {
+        res.textContent = "Senyummu saja sudah cukup membuatku bahagia.";
+    }
+}
+</script>
+
+</body>
+</html>
